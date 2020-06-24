@@ -1,85 +1,158 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+## Laravel Cloudinary Sample App
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Clone this repo
+- Run `composer install`
+- Set your environment variable in your `.env` file: `CLOUDINARY_URL=xxxxxxxxxxxx`
+- Run `php artisan serve`
+- Access the `/upload` route to test uploads
+- Access the `/` route to test the image and video component
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Laravel Controller in Use
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- app/Http/Controllers/FileUploadController.php
 
-## Learning Laravel
+## Blade Component in use for video and image tag
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- resources/views/welcome.blade.php
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## View for upload
 
-## Laravel Sponsors
+- resources/views/upload.blade.php
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
+```php
 
-### Community Sponsors
+/**
+*  Using the Cloudinary Facade
+*/
 
-<a href="https://op.gg"><img src="http://opgg-static.akamaized.net/icon/t.rectangle.png" width="150"></a>
+// Upload an Image File to Cloudinary with One line of Code
+$uploadedFileUrl = Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
 
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [云软科技](http://www.yunruan.ltd/)
+// Upload an Video File to Cloudinary with One line of Code
+$uploadedFileUrl = Cloudinary::uploadVideo($request->file('file')->getRealPath())->getSecurePath();
 
-## Contributing
+// Upload any File to Cloudinary with One line of Code
+$uploadedFileUrl = Cloudinary::uploadFile($request->file('file')->getRealPath())->getSecurePath();
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+/**
+ *  This package also exposes a helper function you can use if you are not a fan of Facades
+ *  Shorter, expressive, fluent using the
+ *  cloudinary() function
+ */
 
-## Code of Conduct
+// Upload an Image File to Cloudinary with One line of Code
+$uploadedFileUrl = cloudinary()->upload($request->file('file')->getRealPath())->getSecurePath();
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+// Upload an Video File to Cloudinary with One line of Code
+$uploadedFileUrl = cloudinary()->uploadVideo($request->file('file')->getRealPath())->getSecurePath();
 
-## Security Vulnerabilities
+// Upload any File to Cloudinary with One line of Code
+$uploadedFileUrl = cloudinary()->uploadFile($request->file('file')->getRealPath())->getSecurePath();
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+/**
+ *  You can also skip the Cloudinary Facade or helper method and laravel-ize your uploads by simply calling the
+ *  laravel store() method and pass 'cloudinary' as the second option which indicates the disk name
+ *  or just use the storeOnCloudinary() method on the file itself
+ */
 
-## License
+// Store the uploaded file in the "anaconda" directory on Cloudinary
+$result = $request->file('file')->store('anaconda', 'cloudinary');
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+// Store the uploaded file on Cloudinary
+$result = $request->file('file')->storeOnCloudinary();
+
+// Store the uploaded file on Cloudinary
+$result = $request->file->storeOnCloudinary();
+
+// Store the uploaded file in the "lambogini" directory on Cloudinary
+$result = $request->file->storeOnCloudinary('lambogini');
+
+// Store the uploaded file in the "lambogini" directory on Cloudinary with the filename "prosper"
+$result = $request->file->storeOnCloudinaryAs('lambogini', 'prosper');
+
+
+$result->getPath(); // Get the url of the uploaded file; http
+$result->getSecurePath(); // Get the url of the uploaded file; https
+$result->getSize(); // Get the size of the uploaded file in bytes
+$result->getReadableSize(); // Get the size of the uploaded file in bytes, megabytes, gigabytes or terabytes. E.g 1.8 MB
+$result->getFileType(); // Get the type of the uploaded file
+$result->getFileName(); // Get the file name of the uploaded file
+$result->getOriginalFileName(); // Get the file name of the file before it was uploaded to Cloudinary
+$result->getPublicId(); // Get the public_id of the uploaded file
+$result->getExtension(); // Get the extension of the uploaded file
+$result->getWidth(); // Get the width of the uploaded file
+$result->getHeight(); // Get the height of the uploaded file
+$result->getTimeUploaded(); // Get the time the file was uploaded
+```
+
+**Attach Files** to Laravel **Eloquent Models**:
+
+```php
+/**
+ *  How to attach a file to a Model by model creation
+ */
+$page = Page::create($this->request->input());
+$page->attachMedia($file);   // Example of $file is $request->file('file');
+
+/**
+ *  How to attach a file to a Model by retreiving model records
+ */
+$page = Page::find(2);
+$page->attachMedia($file);  // Example of $file is $request->file('file');
+
+/**
+ *  How to retrieve files that were attached to a Model
+ */
+$filesBelongingToSecondPage = Page::find(2)->fetchAllMedia();
+
+/**
+ *  How to retrieve the first file that was attached to a Model
+ */
+$fileBelongingToSecondPage = Page::find(2)->fetchFirstMedia();
+
+/**
+ *  How to retrieve the last file that was attached to a Model
+ */
+$fileBelongingToSecondPage = Page::find(2)->fetchLastMedia();
+
+/**
+ *  How to replace/update files attached to a Model
+ */
+$page = Page::find(2);
+$page->updateMedia($file);  // Example of $file is $request->file('file');
+
+/**
+*  How to detach a file from a Model
+*/
+$page = Page::find(2);
+$page->detachMedia($file)  // Example of $file is $request->file('file');
+```
+
+**Upload Files Via An Upload Widget**:
+
+Use the `x-cld-upload-button` Blade component that ships with this Package like so:
+```
+<!DOCTYPE html>
+<html>
+    <head>
+        ...
+        @cloudinaryJS
+    </head>
+    <body>
+        <x-cld-upload-button>
+            Upload Files
+        </x-cld-upload-button>
+
+
+        <x-cld-image public-id='xxxxxxx'></x-cld-image>
+
+        <x-cld-video public-id='xxxxxxx'></x-cld-video>
+
+
+    </body>
+</html>
+````
