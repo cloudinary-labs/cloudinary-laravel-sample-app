@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb87925d4370527a90728ef0789c183d",
+    "content-hash": "276b1b58f51090172a0e866d518bbacc",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -105,17 +105,85 @@
             "time": "2020-04-15T15:59:35+00:00"
         },
         {
-            "name": "cloudinary/cloudinary_php",
-            "version": "2.0.0-beta3",
+            "name": "cloudinary-labs/cloudinary-laravel",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/cloudinary/cloudinary_php.git",
-                "reference": "282221ac39f12db23b6f504b91045f00e3ac4a12"
+                "url": "https://github.com/cloudinary-labs/cloudinary-laravel.git",
+                "reference": "7ae253f0262665b7847ae972f8a85ba1a2e2c004"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/282221ac39f12db23b6f504b91045f00e3ac4a12",
-                "reference": "282221ac39f12db23b6f504b91045f00e3ac4a12",
+                "url": "https://api.github.com/repos/cloudinary-labs/cloudinary-laravel/zipball/7ae253f0262665b7847ae972f8a85ba1a2e2c004",
+                "reference": "7ae253f0262665b7847ae972f8a85ba1a2e2c004",
+                "shasum": ""
+            },
+            "require": {
+                "cloudinary/cloudinary_php": "2.0.0-beta6",
+                "ext-json": "*",
+                "illuminate/support": "~5|~6|~7",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.1",
+                "orchestra/testbench": "~3|~4",
+                "phpunit/phpunit": "^8.0",
+                "sempro/phpunit-pretty-print": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "CloudinaryLabs\\CloudinaryLaravel\\CloudinaryServiceProvider"
+                    ],
+                    "aliases": {
+                        "Cloudinary": "CloudinaryLabs\\CloudinaryLaravel\\Facades\\Cloudinary"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CloudinaryLabs\\CloudinaryLaravel\\": "src/"
+                },
+                "files": [
+                    "src/Support/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Prosper Otemuyiwa",
+                    "email": "prosperotemuyiwa@gmail.com",
+                    "homepage": "https://github.com/unicodeveloper"
+                }
+            ],
+            "description": "A Laravel Cloudinary Package",
+            "homepage": "https://github.com/cloudinary-labs/cloudinary-laravel",
+            "keywords": [
+                "File Transformations",
+                "Media management",
+                "cloudinary",
+                "cloudinary-laravel",
+                "file uploads",
+                "laravel"
+            ],
+            "time": "2020-07-15T12:54:20+00:00"
+        },
+        {
+            "name": "cloudinary/cloudinary_php",
+            "version": "2.0.0-beta6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cloudinary/cloudinary_php.git",
+                "reference": "a99b9aba5baa37d93e70241eb645619691948bd6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/a99b9aba5baa37d93e70241eb645619691948bd6",
+                "reference": "a99b9aba5baa37d93e70241eb645619691948bd6",
                 "shasum": ""
             },
             "require": {
@@ -160,7 +228,7 @@
                 "image management",
                 "sdk"
             ],
-            "time": "2020-06-09T11:24:35+00:00"
+            "time": "2020-07-14T15:03:33+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3853,69 +3921,6 @@
             "time": "2019-10-24T08:53:34+00:00"
         },
         {
-            "name": "unicodeveloper/laravel-cloudinary",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/unicodeveloper/laravel-cloudinary.git",
-                "reference": "bde0ac3b5a79169b6efcc92670cf076d10bbdf0c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/unicodeveloper/laravel-cloudinary/zipball/bde0ac3b5a79169b6efcc92670cf076d10bbdf0c",
-                "reference": "bde0ac3b5a79169b6efcc92670cf076d10bbdf0c",
-                "shasum": ""
-            },
-            "require": {
-                "cloudinary/cloudinary_php": "2.0.0-beta3",
-                "illuminate/support": "~5|~6|~7",
-                "php": "^7.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.1",
-                "orchestra/testbench": "~3|~4",
-                "phpunit/phpunit": "^8.0",
-                "sempro/phpunit-pretty-print": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Unicodeveloper\\Cloudinary\\CloudinaryServiceProvider"
-                    ],
-                    "aliases": {
-                        "Cloudinary": "Unicodeveloper\\Cloudinary\\Facades\\Cloudinary"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Unicodeveloper\\Cloudinary\\": "src/"
-                },
-                "files": [
-                    "src/Support/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Prosper Otemuyiwa",
-                    "email": "prosperotemuyiwa@gmail.com",
-                    "homepage": "https://github.com/unicodeveloper"
-                }
-            ],
-            "description": "A Laravel Cloudinary Package",
-            "homepage": "https://github.com/unicodeveloper/laravel-cloudinary",
-            "keywords": [
-                "laravel",
-                "laravel-cloudinary"
-            ],
-            "time": "2020-06-24T05:00:58+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v4.1.7",
             "source": {
@@ -6023,9 +6028,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "unicodeveloper/laravel-cloudinary": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
